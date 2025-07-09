@@ -3,7 +3,8 @@ import openai
 import os
 
 app = Flask(__name__)
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+
+client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 PROMPT_TEMPLATE = """
 You are PredictaPass, a bracket racing AI crew chief assistant.
@@ -40,12 +41,12 @@ def predict():
     prompt = PROMPT_TEMPLATE.format(**data)
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4-turbo",
+        response = client.chat.completions.create(
+            model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=200
         )
-        reply = response['choices'][0]['message']['content']
+        reply = response.choices[0].message.content
         return jsonify({'response': reply})
     except Exception as e:
         return jsonify({'error': str(e)}), 500

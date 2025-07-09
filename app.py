@@ -4,7 +4,11 @@ import openai
 
 app = Flask(__name__)
 
-client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+import openai
+import os
+
+openai.api_key = os.environ["OPENAI_API_KEY"]
+
 
 @app.route("/", methods=["GET", "POST"])
 def chat():
@@ -22,11 +26,12 @@ def chat():
         ] + conversation
 
         try:
-            response = client.chat.completions.create(
+            response = openai.chat.completions.create(...)
+
                 model="gpt-4",
                 messages=messages,
                 temperature=0.7
-            )
+            
 
             assistant_reply = response.choices[0].message.content.strip()
             conversation.append({"role": "assistant", "content": assistant_reply})

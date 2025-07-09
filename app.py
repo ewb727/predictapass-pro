@@ -28,11 +28,13 @@ def chat():
         try:
             
 
-                response = openai.chat.completions.create(
-    model="gpt-4",
-    messages=messages,
-    temperature=0.7
-)
+       response = client.chat.completions.create(
+        model="gpt-4",
+        messages=messages,
+        temperature=0.7
+    )
+
+    assistant_reply = response.choices[0].message.content.strip()
 
             
 

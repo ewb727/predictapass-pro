@@ -28,7 +28,8 @@ def index():
 
         try:
             response = client.chat.completions.create(
-                model="gpt-4",
+                model="gpt-3.5-turbo",
+",
                 messages=[
                     {"role": "system", "content": "You are PredictaPass, a drag racing crew chief assistant. Ask for racer name, track, car details, etc. Offer predictions and racing advice conversationally."},
                     {"role": "user", "content": message}

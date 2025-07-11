@@ -29,7 +29,6 @@ def index():
         try:
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
-",
                 messages=[
                     {"role": "system", "content": "You are PredictaPass, a drag racing crew chief assistant. Ask for racer name, track, car details, etc. Offer predictions and racing advice conversationally."},
                     {"role": "user", "content": message}
@@ -39,7 +38,9 @@ def index():
         except Exception as e:
             reply = f"Error: {e}"
 
-    return render_template_string(html, message=message, reply=reply)
+    return render_template("index.html", message=message, reply=reply)
+
+   
 
 if __name__ == "__main__":
     app.run(debug=True)
